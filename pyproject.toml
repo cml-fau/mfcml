@@ -1,0 +1,21 @@
+[project]
+name = "mfcml-course"
+version = "0.1.0"
+description = "Course material: Mathematical Foundations of Control and Machine Learning"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.4",
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "ipykernel>=6.29",
+    "jupyter>=1.0",
+]
+
+# CPU-only PyTorch wheels: much smaller download, sufficient for the course notebooks.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
