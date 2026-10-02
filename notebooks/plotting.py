@@ -11,10 +11,10 @@ Everything here takes numpy arrays or torch tensors interchangeably.
 Layout
     panels, label, curves                  -- the three workhorses
 Recurring figures
-    decision_boundary, contour_path, phase, complex_plane, heatmap, show_images
+    decision_boundary, contour_path, phase, complex_plane, heatmap, show_images, fill_in
 Animations
     animate, animate_points, animate_surface, animate_trajectory, animate_pendulum,
-    animate_images
+    animate_images, animate_generation
 Schematics (drawing with no mathematical content in it)
     block, arrow, feedback_diagram, spring, spring_mass_damper, spring_mass_artist,
     maze_values, milestones
@@ -43,9 +43,9 @@ __all__ = [
     "RULE", "GRID", "GHOST", "NOTE", "CYCLE",
     "style", "panels", "label", "curves",
     "decision_boundary", "contour_path", "phase", "complex_plane", "heatmap",
-    "image_grid", "show_images",
+    "image_grid", "show_images", "fill_in",
     "animate", "animate_points", "animate_surface", "animate_trajectory", "animate_pendulum",
-    "animate_images",
+    "animate_images", "animate_generation",
     "block", "arrow", "feedback_diagram",
     "spring", "spring_mass_damper", "spring_mass_artist", "maze_values", "milestones",
     "smooth", "cut_jumps",
@@ -405,6 +405,88 @@ def animate_images(panels_, title=None, cmap="gray_r", vmin=-1, vmax=1,
         _title(ax, title, k)
 
     return animate(fig, update, len(panels_), interval)
+
+
+def _shown(ch):
+    """A character as a tick label: line breaks and spaces made visible."""
+    return {"\n": "\\n", " ": "' '"}.get(ch, ch)
+
+
+def _text_and_bars(text, k, width, figsize, ylabel):
+    """The frame of the token figures: `text` on a character grid above, k bars below."""
+    pos, r, c = [], 0, 0                                   # where each character is drawn
+    for ch in text:
+        pos.append((r, c))
+        r, c = (r + 1, 0) if ch == "\n" or c == width - 1 else (r, c + 1)
+    fig, (ax, bx) = plt.subplots(2, 1, figsize=figsize, gridspec_kw={"height_ratios": [1.1, 1]})
+    label(ax, xlim=(-0.5, width), ylim=(pos[-1][0] + 0.5, -0.6), off=True)
+    glyphs = [ax.text(c, r, ch, family="monospace", fontsize=10, ha="center", va="center")
+              for ch, (r, c) in zip(text, pos)]
+    bars = bx.bar(range(k), np.zeros(k))
+    label(bx, ylabel=ylabel, ylim=(0, 1))
+    bx.set_xticks(range(k))
+    return fig, ax, bx, pos, glyphs, bars
+
+
+def _slot(ax, rc, alpha=0.3):
+    """The shaded box behind a character: a [MASK] the model is filling."""
+    return ax.add_patch(FancyBboxPatch((rc[1] - 0.4, rc[0] - 0.3), 0.8, 0.6,
+                                       boxstyle="round,pad=0.05", fc=ORANGE, ec="none", alpha=alpha))
+
+
+def _top_bars(bx, bars, p, vocab, mark):
+    """The most likely tokens of `p`, with `mark` in orange (on the last bar if it is not among them)."""
+    top, mark = np.argsort(p)[::-1][:len(bars)].copy(), int(mark)
+    if mark not in top:
+        top[-1] = mark
+    for b, i in zip(bars, top):
+        b.set_height(p[i])
+        b.set_color(ORANGE if i == mark else BLUE)
+    bx.set_xticklabels([_shown(vocab[i]) for i in top], family="monospace")
+
+
+def fill_in(text, hole, probs, vocab, k=10, width=64, figsize=(6.4, 3.2)):
+    """Masked-token prediction in one picture.
+
+    Above, `text` in grey with the character at `hole` hidden: its slot is shaded and
+    filled with the model's most likely character.  Below, the distribution `probs` at
+    the hole, with the hidden character in orange.
+    """
+    probs = _np(probs)
+    fig, ax, bx, pos, glyphs, bars = _text_and_bars(text, k, width, figsize, "$p_\\theta$(hidden character)")
+    for g in glyphs:
+        g.set_color(GREY)
+    _slot(ax, pos[hole])
+    glyphs[hole].set(text=vocab[probs.argmax()], color=INK)
+    _top_bars(bx, bars, probs, vocab, vocab.index(text[hole]))
+    return fig
+
+
+def animate_generation(prompt, sampled, probs, vocab, k=10, width=64, figsize=(6.4, 4.0),
+                       interval=220):
+    """Autoregressive sampling, one character per frame.
+
+    Above, the text so far: the prompt in grey, the sampled characters in ink, and the
+    character drawn at this step in orange, in the shaded slot of the `[MASK]`.  Below,
+    the top-`k` of the distribution it was drawn from, with the drawn character in orange.
+    `sampled[s]` is the index drawn at step s from the distribution `probs[s]` over `vocab`.
+    """
+    probs, sampled = _np(probs), list(sampled)
+    text = prompt + "".join(vocab[i] for i in sampled)
+    fig, ax, bx, pos, glyphs, bars = _text_and_bars(text, k, width, figsize, "$p_\\theta$(next character)")
+    slot = _slot(ax, pos[0])
+
+    def update(s):
+        n = len(prompt) + s                                # the position filled at this step
+        for i, g in enumerate(glyphs):
+            g.set_visible(i <= n)
+            g.set_color(GREY if i < len(prompt) else ORANGE if i == n else INK)
+        slot.set_x(pos[n][1] - 0.4); slot.set_y(pos[n][0] - 0.3)
+        _top_bars(bx, bars, probs[s], vocab, sampled[s])
+        ax.set_title(f"step {s + 1}:  drew {_shown(vocab[sampled[s]])}"
+                     f"  with probability {probs[s, sampled[s]]:.3f}")
+
+    return animate(fig, update, len(sampled), interval)
 
 
 # --------------------------------------------------------------------------------------

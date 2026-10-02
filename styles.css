@@ -1,0 +1,22 @@
+/* Wide equations, tables and code scroll inside their own box instead of widening the page. */
+span.math.display {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+span.math.inline mjx-container {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
+}
+main table {
+  display: block;
+  overflow-x: auto;
+}
+div.sourceCode,
+.cell-output pre {
+  overflow-x: auto;
+}
