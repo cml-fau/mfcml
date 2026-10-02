@@ -54,9 +54,9 @@ text and the code is the smallest runnable confirmation of it.
 
 | # | Notebook | Topics |
 |---|---|---|
-| 01 | [Introduction to Machine Learning & Deep Learning](notebooks/01_intro_to_ml.ipynb) | Risk minimization, representations, linear regression, gradient descent, autodiff and backpropagation, neural networks |
+| 01 | [Introduction to Machine Learning & Deep Learning](notebooks/01_intro_to_ml.ipynb) | Risk minimization, representations, models (linear regression, neural networks, softmax classifiers), training (gradient descent, backpropagation, mini-batch SGD), generalization, a zoo of architectures |
 | 02 | [Control Theory](notebooks/02_control_theory.ipynb) | Kalman rank condition, controllability Gramian, pole placement, LQR and the Riccati equation, model predictive control |
-| 03 | [Optimization and gradient descent](notebooks/03_optimization.ipynb) | Descent lemma, convergence in the convex and non-convex case, momentum, stochastic gradients and the noise floor |
+| 03 | [Optimization and gradient descent](notebooks/03_optimization.ipynb) | Descent lemma, convergence in the convex and non-convex case, momentum, noisy gradients and the Gibbs measure |
 | 04 | [Neural ODEs](notebooks/04_neuralodes.ipynb) | Residual networks as Euler steps, numerical ODE solvers, learning dynamics and representations |
 | 05 | [Diffusion models](notebooks/05_diffusion_models.ipynb) | The heat equation as noising, Feynman–Kac, Ornstein–Uhlenbeck forward process, reverse-time SDE and probability-flow ODE, score matching |
 | 06 | [Transformers](notebooks/06_transformers.ipynb) | Self-attention, multi-head attention, positional encoding, the transformer block, masked language modelling |

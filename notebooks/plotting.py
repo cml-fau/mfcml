@@ -13,7 +13,8 @@ Layout
 Recurring figures
     decision_boundary, contour_path, phase, complex_plane, heatmap, show_images
 Animations
-    animate, animate_points, animate_trajectory, animate_pendulum, animate_images
+    animate, animate_points, animate_surface, animate_trajectory, animate_pendulum,
+    animate_images
 Schematics (drawing with no mathematical content in it)
     block, arrow, feedback_diagram, spring, spring_mass_damper, spring_mass_artist,
     maze_values, milestones
@@ -43,7 +44,8 @@ __all__ = [
     "style", "panels", "label", "curves",
     "decision_boundary", "contour_path", "phase", "complex_plane", "heatmap",
     "image_grid", "show_images",
-    "animate", "animate_points", "animate_trajectory", "animate_pendulum", "animate_images",
+    "animate", "animate_points", "animate_surface", "animate_trajectory", "animate_pendulum",
+    "animate_images",
     "block", "arrow", "feedback_diagram",
     "spring", "spring_mass_damper", "spring_mass_artist", "maze_values", "milestones",
     "smooth", "cut_jumps",
@@ -308,7 +310,26 @@ def animate_points(traj, color=BLUE, s=10, background=None, title=None, decorate
     return animate(fig, update, len(traj), interval)
 
 
-def animate_trajectory(xy, color=BLUE, title=None, decorate=None, figsize=(5.0, 4.2),
+def animate_surface(X, Y, Z, title=None, cmap="Blues", figsize=(5.0, 4.2), interval=90, ticks=False):
+    """A function of two variables changing in time, drawn as a 3-D surface: `Z` is (n_frames, *X.shape)."""
+    X, Y, Z = _np(X), _np(Y), np.stack([_np(z) for z in Z])
+    fig = plt.figure(figsize=figsize)
+    ax = fig.add_subplot(projection="3d")
+    ax.set(zlim=(0, Z.max()))
+    if not ticks:
+        ax.grid(False)
+        ax.set(xticks=[], yticks=[], zticks=[])
+    surf = [ax.plot_surface(X, Y, Z[0], cmap=cmap, vmin=0, vmax=Z.max())]
+
+    def update(k):
+        surf[0].remove()
+        surf[0] = ax.plot_surface(X, Y, Z[k], cmap=cmap, vmin=0, vmax=Z.max())
+        _title(ax, title, k)
+
+    return animate(fig, update, len(Z), interval)
+
+
+def animate_trajectory(xy,color=BLUE, title=None, decorate=None, figsize=(5.0, 4.2),
                        interval=70, trail=None, **kw):
     """One point tracing a path, with the whole path drawn faintly underneath."""
     xy = _np(xy)
@@ -331,55 +352,43 @@ def animate_trajectory(xy, color=BLUE, title=None, decorate=None, figsize=(5.0, 
     return animate(fig, update, len(xy), interval)
 
 
-def animate_pendulum(theta, dt=None, t=None, frames=None, trail=0, companion=None,
-                     mark=None, mode=None, color=BLUE, figsize=None, interval=60,
-                     ylabel=r"$\theta$"):
+def animate_pendulum(theta, dt=None, t=None, frames=None, trail=0, color=None, labels=None,
+                     figsize=(3.6, 3.6), interval=60):
     """A pendulum swinging, `theta` measured from upright (so the bob is at sin/cos).
 
-    `frames` are the indices of `theta` to animate.  With `companion` -- a second
-    series at the same resolution as `theta` -- a time plot is drawn alongside and
-    filled in as the animation runs; `mark` puts a vertical marker on it.
+    `theta` is one angle series or a list of them, drawn as overlaid pendulums; `frames`
+    are the indices to animate and `labels` names each pendulum in a legend.
     """
-    theta = _np(theta)
-    t = np.arange(len(theta)) * (dt or 1.0) if t is None else _np(t)
-    frames = np.arange(len(theta)) if frames is None else _np(frames)
+    thetas = [_np(th) for th in (theta if isinstance(theta, (list, tuple)) else [theta])]
+    colors = [color] if isinstance(color, str) else color or [BLUE, ORANGE, AQUA, YELLOW]
+    t = np.arange(len(thetas[0])) * (dt or 1.0) if t is None else _np(t)
+    frames = np.arange(len(thetas[0])) if frames is None else _np(frames)
 
-    if companion is None:
-        fig, axp = plt.subplots(figsize=figsize or (3.6, 3.6))
-        axc = None
-    else:
-        fig, (axp, axc) = panels(2, ratios=[1, 1.25], figsize=figsize or (9.5, 3.8))
-
-    axp.add_patch(Circle((0, 0), 1.0, fill=False, ec=GRID, lw=1, ls=":"))
-    axp.add_patch(Circle((0, 0), 0.055, color=INK, zorder=4))
-    axp.plot(0, 1, "*", color=ORANGE, ms=16, zorder=2)
-    rod, = axp.plot([], [], color=color, lw=3, zorder=3)
-    bob, = axp.plot([], [], "o", color=color, ms=12, zorder=4)
-    path, = axp.plot([], [], color=color, lw=1, alpha=0.25)
-    label(axp, xlim=(-1.45, 1.45), ylim=(-1.35, 1.6), equal=True, off=True)
-
-    live = None
-    if axc is not None:
-        c = _np(companion)
-        axc.plot(t, c, color="#d8d7cf", lw=1.5)
-        if mark is not None:
-            axc.axvline(mark, color=ORANGE, ls=":", lw=1.2)
-        live, = axc.plot([], [], color=color, lw=1.8)
-        label(axc, xlabel="$t$", ylabel=ylabel, xlim=(float(t[0]), float(t[-1])), zero="h")
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.add_patch(Circle((0, 0), 1.0, fill=False, ec=GRID, lw=1, ls=":"))
+    ax.add_patch(Circle((0, 0), 0.055, color=INK, zorder=4))
+    ax.plot(0, 1, "*", color=INK, ms=14, zorder=2)
+    parts = []
+    for k, c in enumerate(colors[:len(thetas)]):
+        rod, = ax.plot([], [], color=c, lw=3, zorder=3, label=labels[k] if labels else None)
+        bob, = ax.plot([], [], "o", color=c, ms=12, zorder=4)
+        path, = ax.plot([], [], color=c, lw=1, alpha=0.25)
+        parts.append((rod, bob, path))
+    label(ax, xlim=(-1.45, 1.45), ylim=(-1.35, 1.6), equal=True, off=True)
+    if labels:
+        ax.legend(loc="lower center", fontsize=8, frameon=False, ncol=len(labels),
+                  bbox_to_anchor=(0.5, -0.12))
 
     def update(k):
         i = frames[k]
-        a = theta[i]
-        px, py = np.sin(a), np.cos(a)
-        rod.set_data([0, px], [0, py])
-        bob.set_data([px], [py])
-        if trail:
-            past = theta[frames[max(0, k - trail):k + 1]]
-            path.set_data(np.sin(past), np.cos(past))
-        if live is not None:
-            live.set_data(t[:i + 1], _np(companion)[:i + 1])
-        suffix = f"   ({mode(i)})" if mode else ""
-        axp.set_title(f"$t = {t[i]:.2f}$ s{suffix}")
+        for th, (rod, bob, path) in zip(thetas, parts):
+            px, py = np.sin(th[i]), np.cos(th[i])
+            rod.set_data([0, px], [0, py])
+            bob.set_data([px], [py])
+            if trail:
+                past = th[frames[max(0, k - trail):k + 1]]
+                path.set_data(np.sin(past), np.cos(past))
+        ax.set_title(f"$t = {t[i]:.2f}$ s")
 
     return animate(fig, update, len(frames), interval)
 
