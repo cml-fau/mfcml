@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 notebooks=("$@")
 if [ ${#notebooks[@]} -eq 0 ]; then
-    notebooks=(winter-2026/*.ipynb)
+    notebooks=(notebooks/*.ipynb)
 fi
 
 exec .venv/bin/jupyter nbconvert \
