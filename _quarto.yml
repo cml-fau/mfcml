@@ -1,0 +1,46 @@
+# Course website, built with Quarto (https://quarto.org) and deployed to GitHub Pages
+# by .github/workflows/publish.yml. Preview locally with `quarto preview`.
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - notebooks/*.ipynb
+
+# Notebooks are rendered with the outputs saved in them; nothing is re-executed.
+execute:
+  enabled: false
+
+website:
+  title: "Math. Foundations of Control & ML"
+  site-url: https://cml-fau.github.io/mfcml/
+  repo-url: https://github.com/cml-fau/mfcml
+  repo-actions: [source, issue]
+  page-navigation: true
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/cml-fau/mfcml
+        aria-label: GitHub repository
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - text: Home
+        href: index.qmd
+      - section: Notebooks
+        contents: notebooks/*.ipynb
+  page-footer:
+    center: "FAU Erlangen-Nürnberg · Winter 2026"
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    code-copy: true
+    html-math-method: mathjax

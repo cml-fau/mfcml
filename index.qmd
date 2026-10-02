@@ -1,29 +1,16 @@
-# Mathematical Foundations of Control and Machine Learning
-
-**Friedrich-Alexander-Universität Erlangen-Nürnberg — Department of Mathematics**
-Master's level course, Winter semester 2026.
+---
+title: "Mathematical Foundations of Control and Machine Learning"
+subtitle: "Friedrich-Alexander-Universität Erlangen-Nürnberg — Department of Mathematics · Master's course, Winter 2026"
+toc: true
+---
 
 | | |
 |---|---|
 | **Lecturer** | Prof. Dr. Enrique Zuazua |
 | **Co-lecturer** | Daniel López Montero |
 | **Evaluation** | Oral presentation (100%); attendance is taken into account |
-| **Contact** | [cml.fau@gmail.com](mailto:cml.fau@gmail.com) | 
-| **Website** | [cml-fau.github.io/mfcml](https://cml-fau.github.io/mfcml/) |
+| **Contact** | [cml.fau@gmail.com](mailto:cml.fau@gmail.com) |
 | **StudOn** | [studon.fau.de/campo/course/579004](https://www.studon.fau.de/campo/course/579004) |
-
-This repository holds the lecture notebooks and the slides for the students. The notebooks, with
-their outputs, are published as a website at **https://cml-fau.github.io/mfcml/**.
-
-## Contents
-
-- [About the course](#about-the-course)
-- [Learning objectives](#learning-objectives)
-- [Prerequisites](#prerequisites)
-- [Course material](#course-material)
-- [Installation and running the notebooks](#installation-and-running-the-notebooks)
-- [Website](#website)
-- [Bibliography](#bibliography)
 
 ## About the course
 
@@ -51,8 +38,8 @@ code to the shortest fragment that illustrates the mathematics.
 
 ## Course material
 
-Each notebook in [`notebooks/`](notebooks/) is self-contained: the mathematics is developed in the
-text and the code is the smallest runnable confirmation of it.
+Each notebook is self-contained: the mathematics is developed in the text and the code is the
+smallest runnable confirmation of it. Code cells are folded; click **Code** to expand them.
 
 | # | Notebook | Topics |
 |---|---|---|
@@ -64,59 +51,16 @@ text and the code is the smallest runnable confirmation of it.
 | 06 | [Transformers](notebooks/06_transformers.ipynb) | Self-attention, multi-head attention, positional encoding, the transformer block, masked language modelling |
 | 07 | [Reinforcement Learning](notebooks/07_reinforcement_learning.ipynb) | Bellman equation and value iteration, Q-learning, exploration vs. exploitation, Pontryagin's maximum principle, Hamilton–Jacobi–Bellman (appendix) |
 
-Slides and presentations go in [`presentations/`](presentations/).
+## Running the notebooks
 
-## Installation and Running the notebooks
-
-The project is managed with [uv](https://docs.astral.sh/uv/). Dependencies are pinned in
-`uv.lock`, and PyTorch is installed from the CPU-only index — everything in the course runs on a
-laptop without a GPU.
+The source is on [GitHub](https://github.com/cml-fau/mfcml). The project is managed with
+[uv](https://docs.astral.sh/uv/); everything runs on a laptop without a GPU.
 
 ```bash
 git clone https://github.com/cml-fau/mfcml.git
 cd mfcml
 uv sync
-```
-
-This creates a `.venv/` with Python ≥ 3.11, PyTorch, NumPy, Matplotlib and Jupyter.
-
-<details>
-<summary>Without uv</summary>
-
-```bash
-python3 -m venv .venv
-.venv/bin/pip install --index-url https://download.pytorch.org/whl/cpu torch
-.venv/bin/pip install numpy matplotlib jupyter ipykernel
-```
-</details>
-
-
-```bash
 uv run jupyter lab notebooks/
-```
-
-In VS Code, open a notebook and select `.venv/bin/python` as the kernel instead.
-
-To execute a notebook end to end from the command line:
-
-```bash
-uv run jupyter nbconvert --execute --inplace notebooks/01_intro_to_ml.ipynb
-```
-
-## Website
-
-The website is built with [Quarto](https://quarto.org) from `_quarto.yml`, `index.qmd` and the
-notebooks, and is deployed to GitHub Pages by
-[`.github/workflows/publish.yml`](.github/workflows/publish.yml) on every push to `main`. Notebooks
-are **not re-executed**: the site shows the outputs saved in them, so run a notebook and save it
-before pushing. Code cells are folded by default. To hide a cell on the site, put one of these
-comments on its first line: `#| include: false` (drop the cell), `#| echo: false` (hide the code,
-keep the output) or `#| output: false` (keep the code, hide the output).
-
-To preview locally (requires the [Quarto CLI](https://quarto.org/docs/get-started/)):
-
-```bash
-quarto preview
 ```
 
 ## Bibliography

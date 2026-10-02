@@ -16,3 +16,10 @@ data/
 .DS_Store
 .vscode/
 .idea/
+
+# Quarto website build
+_site/
+.quarto/
+
+/.quarto/
+**/*.quarto_ipynb
