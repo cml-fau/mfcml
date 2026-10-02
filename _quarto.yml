@@ -38,11 +38,10 @@ format:
     theme:
       light: cosmo
       dark: darkly
-    respect-user-color-scheme: true
     css: styles.css
     toc: true
     toc-depth: 3
-    code-fold: true
+    code-fold: false
     code-tools: true
     code-copy: true
     html-math-method: mathjax
