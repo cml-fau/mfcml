@@ -214,9 +214,8 @@ def contour_path(ax, G1, G2, Z, path=None, optimum=None, levels=None, color=ORAN
 
 def phase(ax, trajectories, labels=None, colors=None, start=None, target=None, **kw):
     """Trajectories in the plane, with the initial state and the target marked."""
-    trs = [trajectories] if _np(trajectories[0]).ndim == 0 or np.ndim(trajectories[0]) == 1 \
-        else list(trajectories)
-    trs = [_np(t) for t in trs]
+    first = _np(trajectories[0])                       # one trajectory, or several?
+    trs = [_np(trajectories)] if first.ndim == 1 else [_np(t) for t in trajectories]
     colors = colors or CYCLE
     for i, tr in enumerate(trs):
         ax.plot(tr[:, 0], tr[:, 1], color=colors[i % len(colors)],
