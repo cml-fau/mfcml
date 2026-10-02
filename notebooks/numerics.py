@@ -1,14 +1,14 @@
 """Fixed-step ODE integrators shared by the course notebooks.
 
-These are the schemes derived in notebook 02, section 2: one explicit Euler step
+These are the schemes derived in notebook 04, section 2: one explicit Euler step
 (global error O(h)), one classical Runge-Kutta step (global error O(h^4)), and the
 loop that walks either of them along a time grid.  Both steppers take the same
 arguments, so `odeint` can be handed whichever one a section wants to illustrate.
 
 Everything is written for torch tensors, so a trajectory stays differentiable with
 respect to the field's parameters and to x0 -- which is what makes `odeint` usable
-as the forward pass of a neural ODE (notebook 02) and as the state equation of an
-optimal control problem (notebook 05).
+as the forward pass of a neural ODE (notebook 04) and as the state equation of an
+optimal control problem (notebook 02).
 """
 
 import torch
