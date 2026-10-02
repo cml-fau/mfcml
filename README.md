@@ -5,11 +5,13 @@ Master's level course, Winter semester 2026.
 
 | | |
 |---|---|
-| **Lecturer** | Prof. Dr. Enrique Zuazua — Chair in Applied Analysis (Alexander von Humboldt Professorship) |
-| **Co-lecturer** | Daniel López — <dani.lopez@fau.de> |
+| **Lecturer** | Prof. Dr. Enrique Zuazua |
+| **Co-lecturer** | Daniel López Montero |
 | **Evaluation** | Oral presentation (100%); attendance is taken into account |
+| **Contact** | [cml.fau@gmail.com](mailto:cml.fau@gmail.com) | 
+| **Course website** | [https://www.studon.fau.de/campo/course/579004](https://www.studon.fau.de/campo/course/579004) |
 
-This repository holds the lecture notebooks and the slides for the student presentations.
+This repository holds the lecture notebooks and the slides for the students.
 
 ## Contents
 
@@ -19,7 +21,6 @@ This repository holds the lecture notebooks and the slides for the student prese
 - [Course material](#course-material)
 - [Installation](#installation)
 - [Running the notebooks](#running-the-notebooks)
-- [Exporting to HTML](#exporting-to-html)
 - [Bibliography](#bibliography)
 
 ## About the course
@@ -61,9 +62,9 @@ text and the code is the smallest runnable confirmation of it.
 | 06 | [Diffusion models](notebooks/06_diffusion_models.ipynb) | The heat equation as noising, Feynman–Kac, Ornstein–Uhlenbeck forward process, reverse-time SDE and probability-flow ODE, score matching |
 | 07 | [Transformers](notebooks/07_transformers.ipynb) | Self-attention, multi-head attention, positional encoding, the transformer block, masked language modelling |
 
-Slides for the student presentations go in [`presentations/`](presentations/).
+Slides and presentations go in [`presentations/`](presentations/).
 
-## Installation
+## Installation and Running the notebooks
 
 The project is managed with [uv](https://docs.astral.sh/uv/). Dependencies are pinned in
 `uv.lock`, and PyTorch is installed from the CPU-only index — everything in the course runs on a
@@ -85,10 +86,8 @@ python3 -m venv .venv
 .venv/bin/pip install --index-url https://download.pytorch.org/whl/cpu torch
 .venv/bin/pip install numpy matplotlib jupyter ipykernel
 ```
-
 </details>
 
-## Running the notebooks
 
 ```bash
 uv run jupyter lab notebooks/
@@ -101,19 +100,6 @@ To execute a notebook end to end from the command line:
 ```bash
 uv run jupyter nbconvert --execute --inplace notebooks/01_intro_to_ml.ipynb
 ```
-
-## Exporting to HTML
-
-`./export-html.sh` renders the notebooks to standalone HTML pages. With no arguments it exports all
-of them:
-
-```bash
-./export-html.sh                                # all notebooks
-./export-html.sh notebooks/05_control_theory.ipynb   # just one
-```
-
-Cell tags control what the export shows — `remove-cell` drops a cell, `remove-input` keeps only its
-output, `remove-output` keeps only its source. See `jupyter_nbconvert_config.py`.
 
 ## Bibliography
 
