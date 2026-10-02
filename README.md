@@ -55,12 +55,12 @@ text and the code is the smallest runnable confirmation of it.
 | # | Notebook | Topics |
 |---|---|---|
 | 01 | [Introduction to Machine Learning & Deep Learning](notebooks/01_intro_to_ml.ipynb) | Risk minimization, representations, linear regression, gradient descent, autodiff and backpropagation, neural networks |
-| 02 | [Neural ODEs](notebooks/02_neuralodes.ipynb) | Residual networks as Euler steps, numerical ODE solvers, learning dynamics and representations |
-| 03 | [Reinforcement Learning](notebooks/03_reinforcement_learning.ipynb) | Bellman equation and value iteration, Q-learning, exploration vs. exploitation, Pontryagin's maximum principle, Hamilton–Jacobi–Bellman (appendix) |
-| 04 | [Optimization and gradient descent](notebooks/04_optimization.ipynb) | Descent lemma, convergence in the convex and non-convex case, momentum, stochastic gradients and the noise floor |
-| 05 | [Control Theory](notebooks/05_control_theory.ipynb) | Kalman rank condition, controllability Gramian, pole placement, LQR and the Riccati equation, model predictive control |
-| 06 | [Diffusion models](notebooks/06_diffusion_models.ipynb) | The heat equation as noising, Feynman–Kac, Ornstein–Uhlenbeck forward process, reverse-time SDE and probability-flow ODE, score matching |
-| 07 | [Transformers](notebooks/07_transformers.ipynb) | Self-attention, multi-head attention, positional encoding, the transformer block, masked language modelling |
+| 02 | [Control Theory](notebooks/02_control_theory.ipynb) | Kalman rank condition, controllability Gramian, pole placement, LQR and the Riccati equation, model predictive control |
+| 03 | [Optimization and gradient descent](notebooks/03_optimization.ipynb) | Descent lemma, convergence in the convex and non-convex case, momentum, stochastic gradients and the noise floor |
+| 04 | [Neural ODEs](notebooks/04_neuralodes.ipynb) | Residual networks as Euler steps, numerical ODE solvers, learning dynamics and representations |
+| 05 | [Diffusion models](notebooks/05_diffusion_models.ipynb) | The heat equation as noising, Feynman–Kac, Ornstein–Uhlenbeck forward process, reverse-time SDE and probability-flow ODE, score matching |
+| 06 | [Transformers](notebooks/06_transformers.ipynb) | Self-attention, multi-head attention, positional encoding, the transformer block, masked language modelling |
+| 07 | [Reinforcement Learning](notebooks/07_reinforcement_learning.ipynb) | Bellman equation and value iteration, Q-learning, exploration vs. exploitation, Pontryagin's maximum principle, Hamilton–Jacobi–Bellman (appendix) |
 
 Slides and presentations go in [`presentations/`](presentations/).
 
