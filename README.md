@@ -102,9 +102,6 @@ To execute a notebook end to end from the command line:
 uv run jupyter nbconvert --execute --inplace notebooks/01_intro_to_ml.ipynb
 ```
 
-Every notebook opens with a setup cell that seeds the random number generators and fixes the
-plotting style, so figures and numbers reproduce exactly.
-
 ## Exporting to HTML
 
 `./export-html.sh` renders the notebooks to standalone HTML pages. With no arguments it exports all

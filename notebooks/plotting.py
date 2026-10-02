@@ -4,7 +4,7 @@ The notebooks are read as one sequence, so every figure in them should look the
 same.  This module holds the house style and the figure shapes that recur, so a
 notebook cell can stay close to the mathematics it illustrates:
 
-    from plotting import *          # palette, rcParams and the helpers below
+    import plotting as P            # palette, rcParams and the helpers below: P.panels, P.BLUE, ...
 
 Everything here takes numpy arrays or torch tensors interchangeably.
 
@@ -448,22 +448,18 @@ def spring(x0, x1, y, coils=9, amp=0.12):
 
 
 def spring_mass_damper(ax, pos=0.0):
-    """Plan-style schematic of the spring-mass-damper, with the mass at `pos`."""
+    """Plan-style schematic of the spring-mass system, with the mass at `pos`."""
     ax.add_patch(plt.Rectangle((-2.2, -0.75), 0.14, 1.5, color=GREY))            # wall
     for yy in np.linspace(-0.75, 0.55, 8):                                       # hatching
         ax.plot([-2.4, -2.06], [yy, yy + 0.2], color=GREY, lw=1)
-    ax.plot(*spring(-2.06, pos - 0.45, 0.34), color=BLUE, lw=1.6)                # spring
-    ax.plot([-2.06, -1.45], [-0.34, -0.34], color=AQUA, lw=1.6)                  # damper
-    ax.add_patch(plt.Rectangle((-1.45, -0.56), 0.5, 0.44, fc="white", ec=AQUA, lw=1.6))
-    ax.plot([-1.2, pos - 0.45], [-0.34, -0.34], color=AQUA, lw=1.6)
+    ax.plot(*spring(-2.06, pos - 0.45, 0), color=BLUE, lw=1.6)                   # spring
     ax.add_patch(FancyBboxPatch((pos - 0.45, -0.55), 0.9, 1.1, lw=1.4,           # mass
                                 boxstyle="round,pad=0.02,rounding_size=0.06",
                                 fc="#eef3fb", ec=INK))
     ax.text(pos, 0, "$m$", ha="center", va="center", fontsize=12)
     arrow(ax, (pos + 0.55, 0), (pos + 1.3, 0), ORANGE)
     ax.text(pos + 0.92, 0.22, "$u(t)$", color=ORANGE, ha="center", fontsize=11)
-    ax.text(-1.5, 0.62, "$k$", color=BLUE, fontsize=11)
-    ax.text(-1.35, -1.0, "$c$", color=AQUA, fontsize=11)
+    ax.text((-2.06 + pos - 0.45) / 2, 0.3, "$k$", color=BLUE, ha="center", fontsize=11)
     ax.plot([-2.06, 2.8], [-1.35, -1.35], color=RULE, lw=1)                      # position axis
     ax.plot(0, -1.35, "|", color=RULE, ms=9)
     ax.annotate("", xy=(pos, -1.35), xytext=(0, -1.35),
