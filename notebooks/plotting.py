@@ -310,6 +310,33 @@ def animate_points(traj, color=BLUE, s=10, background=None, title=None, decorate
     return animate(fig, update, len(traj), interval)
 
 
+def animate_point_panels(trajs, titles, color=BLUE, s=8, background=None, marks=None, title=None,
+                         size=(4.6, 2.6), interval=110, **kw):
+    """Several clouds moving in step, one panel each: every entry of `trajs` is (n_frames, n_points, 2).
+
+    `background` is drawn faintly underneath, `marks` as small dark dots on top.
+    """
+    trajs = [_np(t) for t in trajs]
+    fig, axes = panels(len(trajs), size=size, sharex=True, sharey=True)
+    kw.setdefault("equal", True)
+    clouds = []
+    for ax, traj, name in zip(np.atleast_1d(axes), trajs, titles):
+        if background is not None:
+            ax.plot(*_np(background).T, ".", ms=0.4, color=GHOST)
+        if marks is not None:
+            ax.plot(*_np(marks).T, ".", ms=2, color=INK, zorder=3)
+        label(ax, title=name, **kw)
+        clouds.append(ax.scatter(*traj[0].T, s=s, c=color, alpha=0.5, lw=0))
+
+    def update(k):
+        for sc, traj in zip(clouds, trajs):
+            sc.set_offsets(traj[k])
+        if title is not None:
+            fig.suptitle(title(k) if callable(title) else title)
+
+    return animate(fig, update, len(trajs[0]), interval)
+
+
 def animate_surface(X, Y, Z, title=None, cmap="Blues", figsize=(5.0, 4.2), interval=90, ticks=False):
     """A function of two variables changing in time, drawn as a 3-D surface: `Z` is (n_frames, *X.shape)."""
     X, Y, Z = _np(X), _np(Y), np.stack([_np(z) for z in Z])
