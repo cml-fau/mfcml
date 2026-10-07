@@ -78,17 +78,18 @@ smallest runnable confirmation of it. Code cells are folded; click **Code** to e
 | # | Notebook | Topics |
 |---|---|---|
 | 12 | [Shallow Networks: Representation, Sparsity, Convexity](notebooks/12_shallow_networks.ipynb) | Universal approximation, the outer-weight convexification, sparsity via linear programming |
-| 13 | [Neural ODEs](notebooks/13_neuralodes.ipynb) | Residual networks as Euler steps, numerical ODE solvers, learning dynamics and representations |
-| 15 | [Transformers](notebooks/15_transformers.ipynb) | Self-attention, multi-head attention, positional encoding, the transformer block, masked language modelling |
-| 17 | [Diffusion models](notebooks/17_diffusion_models.ipynb) | The heat equation as noising, Feynman–Kac, Ornstein–Uhlenbeck forward process, reverse-time SDE and probability-flow ODE, score matching |
+| 13 | [ResNets and Neural ODEs](notebooks/13_neuralodes.ipynb) | Residual networks as Euler schemes, numerical ODE solvers, the error of Euler's method, training as simultaneous optimal control, backpropagation as the discrete adjoint, learning the Lorenz dynamics, flows that deform the plane |
+| 14 | [Classification as Simultaneous Control](notebooks/14_classification_simultaneous_control.ipynb) | The classification theorem, the three exact actions of a ReLU neuron, explicit switching controls, switch counts and width vs. depth, a pre-registered comparison of constructed and trained classifiers |
+| 15 | [Transformers: Attention and Token Dynamics](notebooks/15_transformers.ipynb) | Self-attention, multi-head attention, positional encoding, a character-level BERT on Tiny Shakespeare, hardmax attention as interacting particles, the clustering theorem |
+| 16 | [Neural Transport and Learning Dynamics from Data](notebooks/16_neural_transport.ipynb) | Push-forward and the transport equation, the Wasserstein-1 distance, atoms versus laws, semi-autonomous neural ODEs, Gronwall estimates |
+| 17 | [Diffusion Models](notebooks/17_diffusion_models.ipynb) | The heat equation as noising, Feynman–Kac, Ornstein–Uhlenbeck forward process, reverse-time SDE and probability-flow ODE, score matching |
 
 **Part V — Closing the loop**
 
 | # | Notebook | Topics |
 |---|---|---|
 | 18 | [Reinforcement Learning](notebooks/18_reinforcement_learning.ipynb) | Bellman equation and value iteration, Q-learning, exploration vs. exploitation, Pontryagin's maximum principle, Hamilton–Jacobi–Bellman (appendix) |
-
-*In preparation:* 14 Classification as simultaneous control · 16 Neural transport · 19 Control and learning: a synthesis.
+| 19 | [Control and Learning: A Synthesis](notebooks/19_synthesis_control_and_learning.ipynb) | The three threads of the course, the dictionary with its scope, one oscillator hosting four different problems, capacity vs. optimization vs. generalization |
 
 ## Running the notebooks
 
