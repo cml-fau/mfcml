@@ -94,11 +94,11 @@ smallest runnable confirmation of it. Code cells are folded; click **Code** to e
 
 ## Running the notebooks
 
-The source is on [GitHub](https://github.com/cml-fau/mfcml). The project is managed with
+The source is on [GitHub](https://github.com/cml-fau/cml-fau.github.io). The project is managed with
 [uv](https://docs.astral.sh/uv/); everything runs on a laptop without a GPU.
 
 ```bash
-git clone https://github.com/cml-fau/mfcml.git
+git clone https://github.com/cml-fau/cml-fau.github.io.git mfcml
 cd mfcml
 uv sync
 uv run jupyter lab notebooks/

@@ -1,0 +1,16 @@
+---
+title: "Page not found"
+toc: false
+---
+
+```{=html}
+<script>
+  // The site used to live at /mfcml/; send old links to the same page at the root.
+  const path = window.location.pathname.replace(/^\/mfcml(\/|$)/, "/");
+  if (path !== window.location.pathname) {
+    window.location.replace(path + window.location.search + window.location.hash);
+  }
+</script>
+```
+
+The page you are looking for does not exist. Go back to the [course homepage](index.qmd).

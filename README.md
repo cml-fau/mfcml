@@ -9,11 +9,11 @@ Master's level course, Winter semester 2026.
 | **Co-lecturer** | Daniel López Montero |
 | **Evaluation** | Oral presentation (100%); attendance is taken into account |
 | **Contact** | [cml.fau@gmail.com](mailto:cml.fau@gmail.com) | 
-| **Website** | [cml-fau.github.io/mfcml](https://cml-fau.github.io/mfcml/) |
+| **Website** | [cml-fau.github.io](https://cml-fau.github.io/) |
 | **StudOn** | [studon.fau.de/campo/course/579004](https://www.studon.fau.de/campo/course/579004) |
 
 This repository holds the lecture notebooks and the slides for the students. The notebooks, with
-their outputs, are published as a website at **https://cml-fau.github.io/mfcml/**.
+their outputs, are published as a website at **https://cml-fau.github.io/**.
 
 ## Contents
 
@@ -73,7 +73,7 @@ The project is managed with [uv](https://docs.astral.sh/uv/). Dependencies are p
 laptop without a GPU.
 
 ```bash
-git clone https://github.com/cml-fau/mfcml.git
+git clone https://github.com/cml-fau/cml-fau.github.io.git mfcml
 cd mfcml
 uv sync
 ```

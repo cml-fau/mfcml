@@ -5,6 +5,7 @@ project:
   output-dir: _site
   render:
     - index.qmd
+    - 404.qmd
     - notebooks/*.ipynb
 
 # Notebooks are rendered with the outputs saved in them; nothing is re-executed.
@@ -13,14 +14,14 @@ execute:
 
 website:
   title: "Math. Foundations of Control & ML"
-  site-url: https://cml-fau.github.io/mfcml/
-  repo-url: https://github.com/cml-fau/mfcml
+  site-url: https://cml-fau.github.io/
+  repo-url: https://github.com/cml-fau/cml-fau.github.io
   repo-actions: [source, issue]
   page-navigation: true
   navbar:
     right:
       - icon: github
-        href: https://github.com/cml-fau/mfcml
+        href: https://github.com/cml-fau/cml-fau.github.io
         aria-label: GitHub repository
   sidebar:
     style: docked
