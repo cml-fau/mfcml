@@ -6,7 +6,7 @@ Master's level course, Winter semester 2026.
 | | |
 |---|---|
 | **Lecturer** | Prof. Dr. Enrique Zuazua |
-| **Co-lecturer** | Daniel López Montero |
+| **Teaching Assistant** | Daniel López Montero |
 | **Evaluation** | Oral presentation (100%); attendance is taken into account |
 | **Contact** | [cml.fau@gmail.com](mailto:cml.fau@gmail.com) | 
 | **Website** | [cml-fau.github.io](https://cml-fau.github.io/) |

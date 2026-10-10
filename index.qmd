@@ -7,7 +7,7 @@ toc: true
 | | |
 |---|---|
 | **Lecturer** | Prof. Dr. Enrique Zuazua |
-| **Co-lecturer** | Daniel López Montero |
+| **Teaching Assistant** | Daniel López Montero |
 | **Location** | 12 October: C3 – Chemikum ([Nikolaus-Fiebiger-Straße 10, 91058 Erlangen](https://www.google.com/maps/search/?api=1&query=Nikolaus-Fiebiger-Stra%C3%9Fe+10%2C+91058+Erlangen))<br>All other sessions: H21 ([Cauerstraße 5b, 91058 Erlangen](https://www.google.com/maps/search/?api=1&query=Cauerstra%C3%9Fe+5b%2C+91058+Erlangen)) |
 | **Evaluation** | Oral presentation (100%); attendance is taken into account |
 | **Contact** | [cml.fau@gmail.com](mailto:cml.fau@gmail.com) |
