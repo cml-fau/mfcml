@@ -275,7 +275,14 @@ def show_images(imgs, nrow=8, title=None, ax=None, figsize=None, cmap="gray_r",
 # Animations
 # --------------------------------------------------------------------------------------
 def animate(fig, update, frames, interval=80, **kw):
-    """FuncAnimation, closing `fig` so the still frame is not shown alongside the player."""
+    """FuncAnimation, closing `fig` so the still frame is not shown alongside the player.
+
+    The layout is computed once on the first frame and then frozen, so that changing titles
+    or moving artists do not make the axes jump from frame to frame.
+    """
+    update(0)
+    fig.canvas.draw()
+    fig.set_layout_engine("none")
     anim = animation.FuncAnimation(fig, update, frames=frames, interval=interval, **kw)
     plt.close(fig)
     return HTML(anim.to_jshtml())
